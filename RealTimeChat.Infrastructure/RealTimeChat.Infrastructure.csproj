@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SendGrid" Version="9.29.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RealTimeChat.DataAccess\RealTimeChat.DataAccess.csproj" />
+    <ProjectReference Include="..\RealTimeChat.Domain\RealTimeChat.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

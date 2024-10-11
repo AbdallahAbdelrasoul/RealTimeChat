@@ -1,9 +1,22 @@
+using RealTimeChat.Presentation.Middlewares;
+using RealTimeChat.Presentation.ServiceCollectionExtensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .AddDataAccessServices(builder.Configuration)
+    .AddDomainServices()
+    .AddInfrastructureServices()
+    .AddApplicationLayerServices()
+    .AddPresentationLayerServices(builder.Configuration)
+    .AddSwaggerGenServices();
+
+// Add Middlewares
+builder.Services.AddSingleton<ActiveContextMiddleware>();
+builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -16,7 +29,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseMiddleware<ActiveContextMiddleware>();
 
 app.UseAuthorization();
 
