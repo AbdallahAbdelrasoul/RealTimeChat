@@ -17,6 +17,8 @@ namespace RealTimeChat.DataAccess.Mappings
             builder.Property(x => x.PasswordSalt).IsRequired().HasMaxLength(256);
             builder.Property(x => x.IsOnline).IsRequired().HasDefaultValue(false);
             builder.Property(x => x.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.Property(x => x.IsVerified).IsRequired().HasDefaultValue(false);
+            builder.Property(x => x.EmailOTP).HasMaxLength(6);
 
             builder.HasQueryFilter(x => !x.IsDeleted);
 

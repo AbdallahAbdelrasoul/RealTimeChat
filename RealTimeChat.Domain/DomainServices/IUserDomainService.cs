@@ -4,6 +4,6 @@ namespace RealTimeChat.Domain.DomainServices
 {
     public interface IUserDomainService
     {
-        Task<User> Create(string email, string username, string password);
+        Task<User> CreateNewUser(string email, string username, string password);
     }
 }

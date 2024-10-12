@@ -16,7 +16,7 @@ namespace RealTimeChat.Domain.DomainServices
             _validationEngine = validationEngine;
         }
 
-        public async Task<User> Create(string email, string username, string password)
+        public async Task<User> CreateNewUser(string email, string username, string password)
         {
             if (!PasswordHandler.IsPasswordComplex(password))
             {

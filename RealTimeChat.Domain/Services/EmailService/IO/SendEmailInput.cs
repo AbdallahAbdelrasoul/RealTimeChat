@@ -1,4 +1,4 @@
-﻿namespace RealTimeChat.Domain.Shared.Services.EmailService.IO
+﻿namespace RealTimeChat.Domain.Services.EmailService.IO
 {
     public class SendEmailInput
     {

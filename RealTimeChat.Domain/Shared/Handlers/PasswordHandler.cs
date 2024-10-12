@@ -39,6 +39,7 @@ namespace RealTimeChat.Domain.Shared.Handlers
                 return false;
             }
         }
+
     }
 
 }

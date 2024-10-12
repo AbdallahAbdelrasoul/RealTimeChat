@@ -1,6 +1,6 @@
-﻿namespace RealTimeChat.Application.AuthenticationService.IO
+﻿namespace RealTimeChat.Application.Users.DTOs
 {
-    public class SignUpInput
+    public class UserRegisterDTO
     {
         public string Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;

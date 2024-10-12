@@ -9,11 +9,10 @@ builder.Services
     .AddDomainServices()
     .AddInfrastructureServices()
     .AddApplicationLayerServices()
-    .AddPresentationLayerServices(builder.Configuration)
+    .AddAuhtenticationServices(builder.Configuration)
     .AddSwaggerGenServices();
 
 // Add Middlewares
-builder.Services.AddSingleton<ActiveContextMiddleware>();
 builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 
 builder.Services.AddControllers();

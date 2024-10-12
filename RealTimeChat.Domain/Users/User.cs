@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using RealTimeChat.Domain.Repositories;
 using RealTimeChat.Domain.Shared.Aggregates;
+using RealTimeChat.Domain.Shared.Exceptions;
 using RealTimeChat.Domain.Shared.Validation;
 
 namespace RealTimeChat.Domain.Users;
@@ -10,10 +11,13 @@ public class User : BaseDomain, IValidationModel<User>
     public int Id { get; private set; }
     public string Email { get; private set; }
     public string UserName { get; private set; }
-    public string PasswordHash { get; set; }
-    public string PasswordSalt { get; set; }
+    public string PasswordHash { get; private set; }
+    public string PasswordSalt { get; private set; }
     public bool IsOnline { get; private set; } = false;
     public DateTime? LastSeen { get; private set; }
+    public bool IsVerified { get; private set; } = false;
+    public string? EmailOTP { get; private set; }
+    public string? ProcessId { get; private set; }
 
     public AbstractValidator<User> Validator => new UserValidator();
 
@@ -40,4 +44,34 @@ public class User : BaseDomain, IValidationModel<User>
         validation.Validate(this);
         return await repository.Create(this);
     }
+    public async Task<bool> Update(IUserRepository repository, IValidationEngine validation)
+    {
+        validation.Validate(this);
+        return await repository.Update(this);
+    }
+
+    public static async Task<User> GetByUsername(string username, IUserRepository repository)
+    {
+        var user = await repository.GetByUsername(username);
+        if (user == null)
+        {
+            throw new DataNotFoundException("User not found.");
+        }
+        return user;
+    }
+    public static async Task<User> GetByProcessId(string processId, IUserRepository repository)
+    {
+        var user = await repository.GetByProcessId(processId);
+        if (user == null)
+        {
+            throw new DataNotFoundException("User not found.");
+        }
+        return user;
+    }
+
+    public void SetIsVerified(bool isVerified) => IsVerified = isVerified;
+    public void SetEmailOTP(string emailOTP) => EmailOTP = emailOTP;
+    public void SetProcessId(string processId) => ProcessId = processId;
+
+
 }

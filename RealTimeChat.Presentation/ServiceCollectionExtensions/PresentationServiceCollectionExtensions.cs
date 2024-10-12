@@ -8,7 +8,7 @@ namespace RealTimeChat.Presentation.ServiceCollectionExtensions
     public static class PresentationServiceCollectionExtensions
     {
         private const string TokenSecretKey = "Auth:Secret";
-        public static IServiceCollection AddPresentationLayerServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAuhtenticationServices(this IServiceCollection services, IConfiguration configuration)
         {
             string tokenSecret = configuration[TokenSecretKey] ?? "RealTimeChat - Awesome - Secret";
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

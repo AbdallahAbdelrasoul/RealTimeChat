@@ -44,6 +44,13 @@ public class HttpException
                     StackTrace = ex.StackTrace,
                     StatusCode = ex.StatusCode
                 },
+            UnauthorizedException ex =>
+                new HttpException()
+                {
+                    Message = ex.HttpResponseMessage,
+                    StackTrace = ex.StackTrace,
+                    StatusCode = ex.StatusCode
+                },
             _ => new HttpException()
             {
                 Message = exception.Message,
