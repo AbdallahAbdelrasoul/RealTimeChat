@@ -1,4 +1,5 @@
-﻿using RealTimeChat.Domain.Services.EmailService;
+﻿using Microsoft.Extensions.Configuration;
+using RealTimeChat.Domain.Services.EmailService;
 using RealTimeChat.Domain.Services.EmailService.IO;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -7,11 +8,18 @@ namespace RealTimeChat.Infrastructure.Services.EmailService
 {
     public class MailService : IMailService
     {
+        private readonly IConfiguration _configuration;
+
+        public MailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task SendEmailAsync(SendEmailInput input)
         {
             try
             {
-                var apiKey = "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";
+                var apiKey = _configuration.GetSection("SendGrid:apiKey").Value;
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("abdallahabdelrasoul@gmail.com", "RealTimeChat Administration");
                 var subject = input.Subject;
