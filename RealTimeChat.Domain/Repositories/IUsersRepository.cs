@@ -2,7 +2,7 @@
 
 namespace RealTimeChat.Domain.Repositories
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
         Task<int> Create(User user);
         Task<User?> GetByUsername(string username);

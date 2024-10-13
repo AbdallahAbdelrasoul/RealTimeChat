@@ -1,3 +1,4 @@
+using RealTimeChat.Domain.Shared.Hubs;
 using RealTimeChat.Presentation.Middlewares;
 using RealTimeChat.Presentation.ServiceCollectionExtensions;
 
@@ -9,15 +10,17 @@ builder.Services
     .AddDomainServices()
     .AddInfrastructureServices()
     .AddApplicationLayerServices()
-    .AddAuhtenticationServices(builder.Configuration)
+    .AddAuthenticationServices(builder.Configuration)
     .AddSwaggerGenServices();
 
-// Add Middlewares
 builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -37,6 +40,9 @@ app.UseAuthentication();
 app.UseMiddleware<ActiveContextMiddleware>();
 
 app.UseAuthorization();
+
+// Map SignalR Hub
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapControllers();
 

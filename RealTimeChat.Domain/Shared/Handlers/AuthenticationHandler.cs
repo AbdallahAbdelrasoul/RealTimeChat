@@ -17,7 +17,7 @@ namespace RealTimeChat.Domain.Shared.Handlers
         public AuthenticationHandler(IConfiguration configuration)
         {
             _configuration = configuration;
-            _tokenSecret = _configuration[TokenSecretKey] ?? "GeekLabsHolding - Awesome - Secret";
+            _tokenSecret = _configuration[TokenSecretKey] ?? AuthenticationConstants.TokenSecret;
             _tokenExpirationSeconds = int.Parse(_configuration[TokenExpirationSecondesKey] ?? "3600");
         }
         public static string GenerateOTP()

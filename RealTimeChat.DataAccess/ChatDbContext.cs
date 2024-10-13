@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RealTimeChat.Domain.Messages;
 using RealTimeChat.Domain.Users;
 using System.Diagnostics.CodeAnalysis;
 
@@ -12,6 +13,7 @@ public sealed class ChatDbContext : DbContext
 
     }
     public DbSet<User> Users => Set<User>();
+    public DbSet<Message> Messages => Set<Message>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -8,9 +8,9 @@ namespace RealTimeChat.Domain.DomainServices
 {
     public class UserDomainService : IUserDomainService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _userRepository;
         private readonly IValidationEngine _validationEngine;
-        public UserDomainService(IUserRepository userRepository, IValidationEngine validationEngine)
+        public UserDomainService(IUsersRepository userRepository, IValidationEngine validationEngine)
         {
             _userRepository = userRepository;
             _validationEngine = validationEngine;

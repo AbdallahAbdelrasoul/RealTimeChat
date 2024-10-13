@@ -12,18 +12,18 @@ namespace RealTimeChat.Application.Users
 {
     public class UsersService : IUsersService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _userRepository;
         private readonly IValidationEngine _validationEngine;
         private readonly AuthenticationHandler _authenticationHandler;
         private readonly IMailService _mailService;
-        public UsersService(IUserRepository userRepository, IValidationEngine validationEngine, AuthenticationHandler authenticationHandler, IMailService mailService)
+        public UsersService(IUsersRepository userRepository, IValidationEngine validationEngine, AuthenticationHandler authenticationHandler, IMailService mailService)
         {
             _userRepository = userRepository;
             _validationEngine = validationEngine;
             _authenticationHandler = authenticationHandler;
             _mailService = mailService;
         }
-      
+
         public async Task<UserDTO> Register(UserRegisterDTO input)
         {
             if (!PasswordHandler.IsPasswordComplex(input.Password))
@@ -76,6 +76,9 @@ namespace RealTimeChat.Application.Users
                 SessionId = Guid.NewGuid().ToString(),
                 TenenatId = 1
             };
+
+            user.SetIsOnline(true);
+            await user.Update(_userRepository, _validationEngine);
 
             var token = _authenticationHandler.GenerateJwtToken(context);
             return new UserLoginOutputDTO
