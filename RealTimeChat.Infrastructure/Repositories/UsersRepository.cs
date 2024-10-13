@@ -7,11 +7,11 @@ using RealTimeChat.Domain.Users;
 
 namespace RealTimeChat.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly ChatDbContext _dbContext;
 
-        public UserRepository(ChatDbContext dbContext)
+        public UsersRepository(ChatDbContext dbContext)
         {
             _dbContext = dbContext;
         }

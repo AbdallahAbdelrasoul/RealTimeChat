@@ -39,18 +39,18 @@ public class User : BaseDomain, IValidationModel<User>
             PasswordSalt = passwordSalt
         };
 
-    public async Task<int> Create(IUserRepository repository, IValidationEngine validation)
+    public async Task<int> Create(IUsersRepository repository, IValidationEngine validation)
     {
         validation.Validate(this);
         return await repository.Create(this);
     }
-    public async Task<bool> Update(IUserRepository repository, IValidationEngine validation)
+    public async Task<bool> Update(IUsersRepository repository, IValidationEngine validation)
     {
         validation.Validate(this);
         return await repository.Update(this);
     }
 
-    public static async Task<User> GetByUsername(string username, IUserRepository repository)
+    public static async Task<User> GetByUsername(string username, IUsersRepository repository)
     {
         var user = await repository.GetByUsername(username);
         if (user == null)
@@ -59,7 +59,7 @@ public class User : BaseDomain, IValidationModel<User>
         }
         return user;
     }
-    public static async Task<User> GetByProcessId(string processId, IUserRepository repository)
+    public static async Task<User> GetByProcessId(string processId, IUsersRepository repository)
     {
         var user = await repository.GetByProcessId(processId);
         if (user == null)
@@ -69,6 +69,7 @@ public class User : BaseDomain, IValidationModel<User>
         return user;
     }
 
+    public void SetIsOnline(bool isOnline) => IsOnline = isOnline;
     public void SetIsVerified(bool isVerified) => IsVerified = isVerified;
     public void SetEmailOTP(string emailOTP) => EmailOTP = emailOTP;
     public void SetProcessId(string processId) => ProcessId = processId;

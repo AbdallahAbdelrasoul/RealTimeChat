@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NpgsqlTypes;
 using RealTimeChat.Domain.Users;
 
 namespace RealTimeChat.DataAccess.Mappings
@@ -19,6 +18,7 @@ namespace RealTimeChat.DataAccess.Mappings
             builder.Property(x => x.IsDeleted).IsRequired().HasDefaultValue(false);
             builder.Property(x => x.IsVerified).IsRequired().HasDefaultValue(false);
             builder.Property(x => x.EmailOTP).HasMaxLength(6);
+            builder.Property(x => x.ProcessId).HasMaxLength(256);
 
             builder.HasQueryFilter(x => !x.IsDeleted);
 

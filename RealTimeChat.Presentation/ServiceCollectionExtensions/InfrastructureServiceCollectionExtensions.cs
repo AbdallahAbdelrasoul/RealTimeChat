@@ -10,8 +10,9 @@ public static class InfrastructureServiceCollectionExtensions
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<IMailService, MailService>();
-        
-        services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IMessagesRepository, MessagesRepository>();
 
         return services;
     }
