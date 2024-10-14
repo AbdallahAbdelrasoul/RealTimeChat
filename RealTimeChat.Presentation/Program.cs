@@ -1,4 +1,4 @@
-using RealTimeChat.Domain.Shared.Hubs;
+using RealTimeChat.Presentation.Hubs;
 using RealTimeChat.Presentation.Middlewares;
 using RealTimeChat.Presentation.ServiceCollectionExtensions;
 
@@ -42,7 +42,7 @@ app.UseMiddleware<ActiveContextMiddleware>();
 app.UseAuthorization();
 
 // Map SignalR Hub
-app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>($"/{nameof(ChatHub)}")/*.RequireAuthorization()*/;
 
 app.MapControllers();
 
