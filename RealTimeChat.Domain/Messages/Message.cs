@@ -18,6 +18,7 @@ namespace RealTimeChat.Domain.Messages
         public string Content { get; private set; }
         public DateTime Timestamp { get; private set; }
         public bool IsSeen { get; private set; } = false;
+
         public AbstractValidator<Message> Validator => throw new NotImplementedException();
 
         public static Message Create(int? id, int senderId, int? recipientId, string content)
@@ -40,6 +41,11 @@ namespace RealTimeChat.Domain.Messages
         public static async Task<PagedResponse<Message>> Search(IMessagesRepository repository, int? userId, int? recipientId, int pageNumber, int pageSize)
         {
             return await repository.Search(userId, recipientId, pageNumber, pageSize);
+        }
+
+        public static async Task MarkAsSeen(IMessagesRepository repository, List<int> messagesIds)
+        {
+            await repository.MarkMessagesAsSeen(messagesIds);
         }
 
     }

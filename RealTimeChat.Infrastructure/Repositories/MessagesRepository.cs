@@ -22,6 +22,13 @@ namespace RealTimeChat.Infrastructure.Repositories
             return message.Id;
         }
 
+        public async Task<int> MarkMessagesAsSeen(List<int> messagesIds)
+        {
+            return await _dbContext.Messages.Where(x => messagesIds.Contains(x.Id))
+                 .ExecuteUpdateAsync(set => set
+                     .SetProperty(x => x.IsSeen, true));
+        }
+
         public async Task<PagedResponse<Message>> Search(int? userId, int? recipientId, int pageNumber, int pageSize)
         {
             var query = _dbContext.Messages.AsQueryable();

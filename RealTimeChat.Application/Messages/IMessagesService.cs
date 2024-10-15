@@ -5,5 +5,6 @@ namespace RealTimeChat.Application.Messages
     public interface IMessagesService
     {
         Task<MessageDTO> Create(MessageCreateDTO input);
+        Task MarkMessagesAsSeen(List<int> messagesIds);
     }
 }

@@ -7,5 +7,6 @@ namespace RealTimeChat.Domain.Repositories
     {
         Task<int> Create(Message message);
         Task<PagedResponse<Message>> Search(int? userId, int? recipientId, int pageNumber, int pageSize);
+        Task<int> MarkMessagesAsSeen(List<int> messagesIds);
     }
 }

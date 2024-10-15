@@ -33,5 +33,13 @@ namespace RealTimeChat.Presentation.Controllers
             return Ok(await _messagesQueryService.ListMessageHistory(request));
         }
 
+
+        [HttpPatch("[Action]")]
+        public async Task<ActionResult<PagedResponse<MessageDTO>>> Seen([FromBody] List<int> MessagesIds)
+        {
+            await _messagesService.MarkMessagesAsSeen(MessagesIds);
+            return Ok();
+        }
+
     }
 }

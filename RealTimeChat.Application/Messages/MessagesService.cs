@@ -1,4 +1,5 @@
 ﻿using RealTimeChat.Application.Messages.DTOs;
+using RealTimeChat.Domain.Messages;
 using RealTimeChat.Domain.Repositories;
 using RealTimeChat.Domain.Shared;
 using RealTimeChat.Domain.Shared.Validation;
@@ -25,6 +26,11 @@ namespace RealTimeChat.Application.Messages
             await msg.Create(_messagesRepository, _validationEngine);
 
             return MessageDTO.FromMessage(msg);
+        }
+
+        public async Task MarkMessagesAsSeen(List<int> messagesIds)
+        {
+            await Message.MarkAsSeen(_messagesRepository, messagesIds);
         }
     }
 }
