@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using RealTimeChat.Domain.Messages;
-using RealTimeChat.Domain.Repositories;
+using RealTimeChat.Application.Messages;
 using RealTimeChat.Domain.Shared;
-using RealTimeChat.Domain.Shared.Validation;
 
 namespace RealTimeChat.Presentation.Hubs
 {
@@ -10,26 +8,30 @@ namespace RealTimeChat.Presentation.Hubs
     public class ChatHub : Hub
     {
         private readonly ActiveContext _activeContext;
-        private readonly IMessagesRepository _messagesRepository;
-        private readonly IValidationEngine _validationEngine;
+        private readonly IMessagesService _messagesService;
 
-        public ChatHub(ActiveContext activeContext, IMessagesRepository messagesRepository, IValidationEngine validationEngine)
+        public ChatHub(IMessagesService messagesService, ActiveContext activeContext)
         {
+            _messagesService = messagesService;
             _activeContext = activeContext;
-            _messagesRepository = messagesRepository;
-            _validationEngine = validationEngine;
         }
 
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.All.SendAsync("ReceiveMessage", "content");
+        }
         public async Task SendMessage(int? recipientId, string content)
         {
-            var username = Context.User?.Identity?.Name;
+            //var username = Context.User?.Identity?.Name;
             var userId = _activeContext.Id;
 
-            Message message = Message.Create(null, userId, recipientId, content);
+            await Clients.All.SendAsync("ReceiveMessage", userId, recipientId, content);
 
-            await message.Create(_messagesRepository, _validationEngine);
-
-            await Clients.All.SendAsync("ReceiveMessage", userId, message.RecipientId, message.Content);
+            await _messagesService.Create(new()
+            {
+                Content = content,
+                RecipientId = recipientId
+            });
         }
     }
 
