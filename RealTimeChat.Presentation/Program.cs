@@ -42,8 +42,7 @@ app.UseMiddleware<ActiveContextMiddleware>();
 app.UseAuthorization();
 
 // Map SignalR Hub
-app.MapHub<ChatHub>($"/{nameof(ChatHub)}")/*.RequireAuthorization()*/;
-
+app.MapHub<ChatHub>($"/{nameof(ChatH
 app.MapControllers();
 
 app.Run();

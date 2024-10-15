@@ -36,6 +36,7 @@ namespace RealTimeChat.Presentation.ServiceCollectionExtensions
                         // If the request is for the SignalR hub
                         var path = context.HttpContext.Request.Path;
                         if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments($"/{nameof(ChatHub)}"))
+
                         {
                             // Read the token from the query string
                             context.Token = accessToken;
@@ -43,6 +44,7 @@ namespace RealTimeChat.Presentation.ServiceCollectionExtensions
                         return Task.CompletedTask;
                     }
                 };
+
             });
 
             return services;
