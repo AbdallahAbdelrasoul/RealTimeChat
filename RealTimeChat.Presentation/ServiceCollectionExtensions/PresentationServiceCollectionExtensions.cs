@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RealTimeChat.Domain.Shared;
+using RealTimeChat.Presentation.Hubs;
 using System.Text;
 
 namespace RealTimeChat.Presentation.ServiceCollectionExtensions
@@ -34,7 +35,8 @@ namespace RealTimeChat.Presentation.ServiceCollectionExtensions
 
                         // If the request is for the SignalR hub
                         var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments($"/{nameof(ChatHub)}"))
+
                         {
                             // Read the token from the query string
                             context.Token = accessToken;
