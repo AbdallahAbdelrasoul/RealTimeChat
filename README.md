@@ -7,6 +7,7 @@ This project is a real-time chat application built using ASP.NET Core, SignalR f
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
+  - [ASP.NET Core Identity Setup](#aspnet-core-identity-setup)
   - [SignalR Setup](#signalr-setup)
   - [SendGrid Setup](#sendgrid-setup)
 - [Usage](#usage)
