@@ -13,14 +13,14 @@ builder.Services
     .AddAuthenticationServices(builder.Configuration)
     .AddSwaggerGenServices();
 
+// Add SignalR
+builder.Services.AddSignalR();
+
 builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Add SignalR
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 
